@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://ваш-сайт.com/img/img_2.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <title>KristiKor - Вязаные сумочки ручной работы</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap');
+        
+        :root {
+            --dark-brown: #5D4037;
+            --medium-brown: #8D6E63;
+            --light-brown: #D7CCC8;
+            --cream: #EFEBE9;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-brown);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(239, 235, 233, 0.9), rgba(239, 235, 233, 0.9)), 
+                        url('https://images.unsplash.com/photo-1604176354202-3f32e5600db3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .bag-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(93, 64, 55, 0.1);
+        }
+        
+        .bag-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(93, 64, 55, 0.2);
+        }
+        
+        .overlay-bags {
+            position: relative;
+            height: 400px;
+        }
+        
+        .overlay-bag {
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            border: 1px solid var(--light-brown);
+        }
+        
+        .bag-1 {
+            top: 20px;
+            left: 10px;
+            width: 230px;
+            z-index: 3;
+            transform: rotate(-4deg);
+        }
+        
+        .bag-2 {
+            top: 50px;
+            left: 175px;
+            width: 223px;
+            z-index: 2;
+            transform: rotate(4deg);
+        }
+        
+        .bag-3 {
+            top: 29px;
+            left: 279px;
+            width: 225px;
+            z-index: 1;
+            transform: rotate(5deg);
+        }
+        
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .gallery-item {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            width: 300px;
+            margin-right: 15px;
+        }
+        
+        .gallery-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .gallery-container::-webkit-scrollbar-track {
+            background: var(--light-brown);
+        }
+        
+        .gallery-container::-webkit-scrollbar-thumb {
+            background-color: var(--medium-brown);
+            border-radius: 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--dark-brown);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4E342E;
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--dark-brown);
+            color: var(--dark-brown);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--dark-brown);
+            color: white;
+        }
+        .mb-6 {
+            padding-right: 20px;
+        }
+        @media (max-width: 768px) {
+            .overlay-bags {
+                height: 300px;
+                width: 300px;
+            }
+            
+            .bag-1 {
+                width: 180px;
+            }
+            
+            .bag-2 {
+                width: 162px;
+                left: 144px;
+            }
+        }
+
+        @keyframes knitting {
+            0% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+        .needle {
+            transform-origin: 50% 50%;
+            animation: knitting 1s infinite;
+        }
+
+        /* Стили для мобильного меню */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(239, 235, 233, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--dark-brown);
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            text-decoration: none;
+        }
+
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--dark-brown);
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc6MTorAAAAAOCJw8GQoXPyatSQe2MwVSfQ5m17"></script>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <svg width="30" height="30" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="20" width="30" height="20" fill="#5D4037" />
+                    <path d="M10 20 Q25 10 40 20" fill="none" stroke="#5D4037" stroke-width="2" />
+                    <line id="needle1" class="needle" x1="15" y1="5" x2="25" y2="15" stroke="#8D6E63" stroke-width="2" />
+                    <line id="needle2" class="needle" x1="35" y1="5" x2="25" y2="15" stroke="#8D6E63" stroke-width="2" />
+                </svg>
+                <h1 class="title-font text-2xl font-semibold text-[#5D4037]"><a href="./">KristiKor</a></h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#products" class="text-[#5D4037] hover:text-[#8D6E63] transition">Коллекция</a>
+                <a href="#about" class="text-[#5D4037] hover:text-[#8D6E63] transition">О нас</a>
+                <a href="#gallery" class="text-[#5D4037] hover:text-[#8D6E63] transition">Галерея</a>
+                <a href="#contact" class="text-[#5D4037] hover:text-[#8D6E63] transition">Контакты</a>
+            </nav>
+            <button class="md:hidden text-[#5D4037] burger-menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Мобильное меню -->
+        <div class="mobile-menu">
+            <span class="close-btn">×</span>
+            <a href="#products" class="menu-link">Коллекция</a>
+            <a href="#about" class="menu-link">О нас</a>
+            <a href="#gallery" class="menu-link">Галерея</a>
+            <a href="#contact" class="menu-link">Контакты</a>
+        </div>
+    </header>
+
+    <!-- Герой -->
+    <section class="hero-bg py-20">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="title-font text-4xl md:text-5xl font-bold text-[#5D4037] mb-4">Эксклюзивные вязаные сумочки</h2>
+                <p class="text-lg text-[#5D4037] mb-6">Ручная работа из натуральных материалов с любовью и вниманием к деталям</p>
+                <a href="#products" class="btn-primary px-6 py-3 rounded-full font-medium transition inline-block">Выбрать свою</a>
+            </div>
+            <div class="md:w-1/2 overlay-bags">
+                <img src="https://raw.githubusercontent.com/Artyom995/kristikor/9b83958b3aed81c612b63a5a96d80d7ccf167eff/img/img_1.jpg" alt="Вязаная сумочка" class="overlay-bag bag-1">
+                <img src="https://raw.githubusercontent.com/Artyom995/kristikor/2d5e3d592f7f59ff6615428d8205e1e09d947691/img/img_2.jpg" alt="Вязаная сумочка" class="overlay-bag bag-2">
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">KristiKor - искусство в каждой петле</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8 p-[3rem]">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/2d5e3d592f7f59ff6615428d8205e1e09d947691/img/img_2.jpg" alt="Ручная работа" class="rounded-lg custom-shadow">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="text-[#5D4037] mb-4">Каждая сумочка KristiKor - это уникальное произведение искусства, созданное вручную с использованием только натуральных и качественных материалов;</p>
+                    <p class="text-[#5D4037] mb-4">Это сочетание традиционных техник вязания с современным дизайном, чтобы создать аксессуары, которые подчеркнут вашу индивидуальность;</p>
+                    <p class="text-[#5D4037]">Это душа мастера и внимание к каждой детали - от выбора пряжи до последнего стежка.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Коллекция -->
+    <section id="products" class="py-16 bg-[#EFEBE9]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">New collection</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bag-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/black.jpg" alt="Вязаная сумочка" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-2">Black Style</h3>
+                        <p class="text-[#8D6E63] mb-4">Всегда притягательный и универсальный черный</p>
+                        <div class="flex justify-between items-center">
+                            <button class="btn-primary px-4 py-2 rounded-full text-sm transition"><a href="https://vk.com/market-224646436?section=album_6">Подробнее</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bag-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/summ.jpg" alt="Вязаная сумочка" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-2">Summar Vibe</h3>
+                        <p class="text-[#8D6E63] mb-4">Летние краски в аксессуарах на каждый день</p>
+                        <div class="flex justify-between items-center">
+                            <button class="btn-primary px-4 py-2 rounded-full text-sm transition"><a href="https://vk.com/market-224646436?section=album_7">Подробнее</a></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bag-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/e62b0623f2afef15a8238c727c29308452987f68/img/its.jpg" alt="Вязаная сумочка" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-2">It's beautiful</h3>
+                        <p class="text-[#8D6E63] mb-4">Безумное разнообразие моделей на каждый день</p>
+                        <div class="flex justify-between items-center">
+                            <button class="btn-primary px-4 py-2 rounded-full text-sm transition"><a href="https://vk.com/market-224646436?section=album_8">Подробнее</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="https://vk.com/market-224646436?section=album_9" class="btn-secondary px-6 py-3 rounded-full font-medium transition inline-block">Смотреть все коллекции</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">Наши работы</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            <div class="gallery-container mb-8 py-4">
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/j_1.jpg" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/j_2.jpg" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/j_3.jpg" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/j_4.jpg" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://raw.githubusercontent.com/Artyom995/kristikor/3e0586ed441844bc2faee3073baa7ce9a9fa1aa8/img/j_5.jpg" alt="Сумочка" class="w-full h-64 object-cover rounded-lg">
+                </div>
+            </div>
+            <div class="flex justify-center space-x-4">
+                <button class="gallery-prev bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-next bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="py-16 bg-[#EFEBE9]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="title-font text-3xl font-bold text-[#5D4037] mb-4">Свяжитесь с нами</h2>
+                <div class="w-24 h-1 bg-[#5D4037] mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h3 class="title-font text-xl font-semibold text-[#5D4037] mb-4">Мы всегда рады новым знакомствам</h3>
+                    <p class="text-[#5D4037] mb-6">Если у вас есть вопросы о наших изделиях или вы хотите сделать индивидуальный заказ, напишите нам или позвоните.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-phone-alt text-[#8D6E63] mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-medium text-[#5D4037]">Телефон</h4>
+                                <p class="text-[#5D4037]"><a href="tel:+79220494842">+7 (922) 049-48-42</a></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope text-[#8D6E63] mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-medium text-[#5D4037]">Email</h4>
+                                <p class="text-[#5D4037]"><a href="mailto:KristiKor72@mail.ru">KristiKor72@mail.ru</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <h4 class="font-medium text-[#5D4037] mb-4">Мы в социальных сетях</h4>
+                        <div class="flex space-x-4">
+                            <a href="https://www.instagram.com/kristinakoritova?igsh=ZzFuc2dlbzloanU3" class="bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://vk.com/kristikor72" class="bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-vk"></i>
+                            </a>
+                            <a href="https://t.me/Koritova72" class="bg-[#D7CCC8] hover:bg-[#8D6E63] text-[#5D4037] hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-telegram-plane"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="bg-white p-6 rounded-lg shadow-md" id="contact-form">
+                        <div class="mb-4">
+                            <label for="name" class="block text-[#5D4037] font-medium mb-2">Ваше имя</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-[#5D4037] font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-[#5D4037] font-medium mb-2">Телефон</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-[#5D4037] font-medium mb-2">Сообщение</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="flex items-start">
+                                <input type="checkbox" id="consent" class="mt-1 mr-2 rounded text-[#5D4037] focus:ring-[#8D6E63]" required>
+                                <span class="text-sm text-[#5D4037]">
+                                    Я согласен(а) на обработку моих персональных данных в соответствии с 
+                                    <a href="#" class="text-[#8D6E63] hover:underline">Политикой конфиденциальности</a>
+                                </span>
+                            </label>
+                        </div>
+                        <input type="hidden" id="recaptcha-token" name="recaptcha-token">
+                        <button type="submit" class="w-full btn-primary py-3 rounded-full font-medium transition">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="bg-[#5D4037] text-[#D7CCC8] py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <svg width="30" height="30" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="20" width="30" height="20" fill="#EFEBE9" />
+                            <path d="M10 20 Q25 10 40 20" fill="none" stroke="#EFEBE9" stroke-width="2" />
+                            <line id="needles1" class="needle" x1="15" y1="5" x2="25" y2="15" stroke="#D7CCC8" stroke-width="2" />
+                            <line id="needles2" class="needle" x1="35" y1="5" x2="25" y2="15" stroke="#D7CCC8" stroke-width="2" />
+                        </svg>
+                        <h2 class="title-font text-2xl font-semibold text-[#EFEBE9]">KristiKor</h2>
+                    </div>
+                    <p class="mt-2 text-[#EFEBE9]">Вязаные сумочки ручной работы</p>
+                </div>
+                <div class="text-center md:text-right">
+                    <p>© 2023 KristiKor. Все права защищены.</p>
+                    <p class="mt-1">Сделано с <i class="fas fa-heart text-[#EFEBE9]"></i> в Тюмени</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Управление мобильным меню
+        const burgerMenu = document.querySelector('.burger-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const closeBtn = document.querySelector('.close-btn');
+        const menuLinks = document.querySelectorAll('.menu-link');
+
+        burgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Закрытие меню при клике на любую ссылку
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !burgerMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Галерея с прокруткой
+        const galleryContainer = document.querySelector('.gallery-container');
+        const galleryPrev = document.querySelector('.gallery-prev');
+        const galleryNext = document.querySelector('.gallery-next');
+        
+        galleryPrev.addEventListener('click', () => {
+            galleryContainer.scrollBy({left: -300, behavior: 'smooth'});
+        });
+        
+        galleryNext.addEventListener('click', () => {
+            galleryContainer.scrollBy({left: 300, behavior: 'smooth'});
+        });
+        
+        // Анимация наложения сумок
+        const overlayBags = document.querySelector('.overlay-bags');
+        const bags = document.querySelectorAll('.overlay-bag');
+        
+        overlayBags.addEventListener('mousemove', (e) => {
+            bags.forEach((bag, index) => {
+                const scale = 1 + (index + 1) * 0.02; // Легкое масштабирование
+                bag.style.transform = `scale(${scale})`;
+            });
+        });
+        
+        overlayBags.addEventListener('mouseleave', () => {
+            bags.forEach((bag) => {
+                bag.style.transform = `scale(1)`; // Возврат к исходному масштабу
+            });
+        });
+
+
+
+        // Обработка формы
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6Lc6MTorAAAAAOCJw8GQoXPyatSQe2MwVSfQ5m17', {action: 'submit'}).then(function(token) {
+                    const data = {
+                        name: form.querySelector('#name').value,
+                        email: form.querySelector('#email').value,
+                        phone: form.querySelector('#phone').value,
+                        message: form.querySelector('#message').value,
+                        agree: form.querySelector('#consent').checked,
+                        'recaptcha-token': token
+                    };
+                    
+                    fetch('https://script.google.com/macros/s/AKfycbzAiXq-IShkidj379q19uKvEYyX1rGwdc90mQz3_6uountaQJjaBYoJ2kwJXOwuoWR_/exec', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    }).then(() => {
+                        // Показываем уведомление об успешной отправке
+                        const successModal = document.createElement('div');
+                        successModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                        successModal.innerHTML = `
+                            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+                                <h3 class="title-font text-2xl text-[#5D4037] mb-4">Спасибо!</h3>
+                                <p class="text-[#5D4037] mb-6">Ваше сообщение успешно отправлено. Мы свяжемся с вами в ближайшее время.</p>
+                                <button onclick="this.parentElement.parentElement.remove()" 
+                                        class="btn-primary px-6 py-2 rounded-full w-full transition">
+                                    Закрыть
+                                </button>
+                            </div>
+                        `;
+                        document.body.appendChild(successModal);
+                        form.reset();
+                    }).catch(error => {
+                        console.error('Ошибка:', error);
+                        alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте ещё раз.');
+                    });
+                });
+            });
+        });
+
+    </script>
+    <style>
+        /* Section reveal animation */
+        section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <script>
+        // Section reveal on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            
+            const revealSection = () => {
+                const triggerBottom = window.innerHeight * 0.85; // Trigger when section is 85% in view
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop < triggerBottom) {
+                        section.classList.add('visible');
+                    }
+                });
+            };
+
+            // Initial check on load
+            revealSection();
+
+            // Check on scroll
+            window.addEventListener('scroll', revealSection);
+        });
+    </script>
+    <style>
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Spinning logo */
+        .loading-logo {
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Content fade-in */
+        body.loading main {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        body.loaded main {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <script>
+        // Add loading class to body on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.className = 'loading-overlay';
+            loadingOverlay.innerHTML = `
+                <svg class="loading-logo" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="20" width="30" height="20" fill="#5D4037" />
+                    <path d="M10 20 Q25 10 40 20" fill="none" stroke="#5D4037" stroke-width="2" />
+                    <line class="needle" x1="15" y1="5" x2="25" y2="15" stroke="#8D6E63" stroke-width="2" />
+                    <line class="needle" x1="35" y1="5" x2="25" y2="15" stroke="#8D6E63" stroke-width="2" />
+                </svg>
+            `;
+            body.appendChild(loadingOverlay);
+            body.classList.add('loading');
+
+            // Remove loading overlay and trigger content animation after 1.5s
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+                body.classList.remove('loading');
+                body.classList.add('loaded');
+                setTimeout(() => {
+                    loadingOverlay.remove();
+                }, 500); // Remove overlay after fade-out
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
