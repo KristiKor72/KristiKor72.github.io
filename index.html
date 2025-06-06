@@ -400,7 +400,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="phone" class="block text-[#5D4037] font-medium mb-2">Телефон</label>
-                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]">
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-[#D7CCC8] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8D6E63]" pattern="\+?[0-9]*" oninput="this.value = this.value.replace(/[^0-9+]/g, '')" >
                         </div>
                         <div class="mb-4">
                             <label for="message" class="block text-[#5D4037] font-medium mb-2">Сообщение</label>
@@ -418,6 +418,11 @@
                         <input type="hidden" id="recaptcha-token" name="recaptcha-token">
                         <button type="submit" class="w-full btn-primary py-3 rounded-full font-medium transition">Отправить сообщение</button>
                     </form>
+                    <script>
+                        document.getElementById('phone').addEventListener('input', function(e) {
+                            e.target.value = e.target.value.replace(/[^0-9+]/g, '');
+                        });
+                    </script>
                 </div>
             </div>
         </div>
