@@ -196,7 +196,7 @@
             color: var(--dark-brown);
         }
     </style>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lc6MTorAAAAAOCJw8GQoXPyatSQe2MwVSfQ5m17"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfGwlcrAAAAAOlXdgXBQQoM3XYM0tMc5QLqGSsU"></script>
 </head>
 <body>
     <!-- Шапка -->
@@ -512,7 +512,7 @@
             event.preventDefault();
             const form = event.target;
             grecaptcha.ready(function() {
-                grecaptcha.execute('6Lc6MTorAAAAAOCJw8GQoXPyatSQe2MwVSfQ5m17', {action: 'submit'}).then(function(token) {
+                grecaptcha.execute('6LfGwlcrAAAAAOlXdgXBQQoM3XYM0tMc5QLqGSsU', {action: 'submit'}).then(function(token) {
                     const data = {
                         name: form.querySelector('#name').value,
                         email: form.querySelector('#email').value,
@@ -522,7 +522,7 @@
                         'recaptcha-token': token
                     };
                     
-                    fetch('https://script.google.com/macros/s/AKfycbzAiXq-IShkidj379q19uKvEYyX1rGwdc90mQz3_6uountaQJjaBYoJ2kwJXOwuoWR_/exec', {
+                    fetch('https://script.google.com/macros/s/AKfycbwIzI8BG8O7Zq8RS04F4Hkq_17mudRPf6-7jjlV6tIGNbJbDcF9BRTH19OSZavK_30X/exec', {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: {
